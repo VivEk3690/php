@@ -7,7 +7,7 @@ include('function.php');
 // Check if the user is not logged in
 if (!isset($_SESSION["userName"])) {
 	menuBar();
-	echo '<h1>You need to login first.</h1>';
+	echo '<h1 S>You need to login first.</h1>';
 
 } else {
 	menuBar();
@@ -31,21 +31,8 @@ if (!isset($_SESSION["userName"])) {
 	$fName = $row["fName"];
 	$lName = $row["lName"];
 
-	// initialise array of letters
-	$letters = array();
-	for ($i = 0; $i < 6; $i++) {
-		$letters[] = chr(rand(97, 122)); // Generate a random letter
-	}
-	//echo implode(" ", $letters);
-	$_SESSION["letter"] = $letters;
-
-	// initialise array of numbers
-	$numbers = array();
-	for ($i = 0; $i < 6; $i++) {
-		$numbers[] = rand(0, 100); // Generate a random number 
-	}
-	//echo implode(" ", $letters);
-	$_SESSION["number"] = $numbers;
+	$_SESSION["level"] = 1;
+	updateQustion(0);
 
 
 	//initialise lives
@@ -63,17 +50,26 @@ echo <<<_END
 
 <head>
 	<title>Welcome</title>
-	<!-- <link rel="stylesheet" type="text/css" href="finalStyle.css"> -->
+	<!-- <link rel="stylesheet" type="text/css" href="../css/finalStyle.css"> -->
+	<style>
+	h2, p {
+		text-align: center;		
+		}		
+		body {
+		  margin: auto;
+		  font-family: 'Lexend Deca', sans-serif; 
+		  color: #2E475D;    
+		}
+		</style>
 </head>
 
 <body>
-	<h2>Welcome,
+	<h2 >Welcome,
 	$fName $lName !
 	</h2>
 	<p>You are now logged in.</p>
 	<p>to play game <a href="level1.php">Click here</a></p>
 	<br />
-	<a href="logout.php">Logout</a>
 </body>
 
 </html>

@@ -35,8 +35,7 @@ function storeGameStatus()
 
 function menuBar()
 {
-
-    echo'
+    echo '
         <html>
         <head>
             <title>Kids Game</title>
@@ -46,32 +45,51 @@ function menuBar()
         <body>
             <!-- Menu bar -->
             <div class="topnav-right">
-            <img src="appicon.jpeg" alt="App Icon" height="45" width="80">
+            <a href="welcome.php"><img src="appicon.jpeg" alt="App Icon" height="45" width="80"></a>
                 
                 <ul class="nav">
                 <li>
                 <a style="margin-left: auto;" href="history.php">History</a>
 
                 </li>';
-    
-    
-                if (!isset($_SESSION["userName"])) {
+
+
+    if (!isset($_SESSION["userName"])) {
         echo '
         <li>
         <a style="margin-left: auto;" href="login.php">Login</a>
         </li>';
     } else {
         echo '<a href="logout.php">Logout</a>';
-    }?>
-    <?php 
-echo '
-                </ul>
+    } ?>
+    <?php
+    echo '</ul>      
+            </div>
+            </body>
+            </html>';
+}
 
-                
-                </div>
-                </body>
-                </html>';
-    
+function updateQustion(int $currentLevel)
+{
+
+    if ($currentLevel != $_SESSION["level"]) {
+        // initialise array of letters
+        $letters = array();
+        for ($i = 0; $i < 6; $i++) {
+            $letters[] = chr(rand(97, 122)); // Generate a random letter
+        }
+        //echo implode(" ", $letters);
+        $_SESSION["letter"] = $letters;
+
+        // initialise array of numbers
+        $numbers = array();
+        for ($i = 0; $i < 6; $i++) {
+            $numbers[] = rand(0, 100); // Generate a random number 
+        }
+        //echo implode(" ", $letters);
+        $_SESSION["number"] = $numbers;
+
+    }
 
 }
 ?>

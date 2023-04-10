@@ -1,8 +1,12 @@
 <?php
  session_start();
- include('function.php');
-$leter = $_SESSION['letter'];
-echo "<h1 style='padding:20px 0px 0px;color:blue'><strong>". strtoupper(implode(" ", $leter)) . "</strong></h1>";
+	include('function.php');
+	menuBar();
+	$leter = $_SESSION["letter"];
+	echo "<h1 style='padding:20px 0px 0px;color:blue'><strong>". strtoupper(implode(" ", $leter)) . "</strong></h1>";
+
+// $leter = $_SESSION['letter'];
+// echo "<h1 style='padding:20px 0px 0px;color:blue'><strong>". strtoupper(implode(" ", $leter)) . "</strong></h1>";
 rsort($leter);
 
 if (isset($_POST['submit'])) {
@@ -12,13 +16,16 @@ if (isset($_POST['submit'])) {
 
 	// Validate the user's answer
 
-	$answer = implode(" ",(array) $leter);
-	if ($user_answer == $answer) {
+	$answer = strtoupper(implode(" ",(array) $leter));
+	if (strtoupper($user_answer) == $answer) {
 		// The user's answer is correct
 		echo "Congratulations, you have won this level!";
 		// Display a button to go to the next level
 		echo '<a href="level3.php">Go to Level 3</a>';
-		$_SESSION["status"] ="incomplete"; 
+		$_SESSION["status"] ="incomplete";
+		$_SESSION["level"] = 3;
+		updateQustion(2);
+ 
 	} else {
 		// The user's answer is incorrect
 		echo "Sorry, your answer is incorrect. " .$user_answer;
@@ -43,17 +50,32 @@ if (isset($_POST['submit'])) {
 
 		}
 	}
+} else if (isset($_POST['stop'])) {
+	$_SESSION["status"] = "incomplete";
+	storeGameStatus();
 }
+
 
 
 //<!-- Level 1: Order letters in ascending order -->
 if (!isset($_POST['submit'])) {
 	echo <<<_END
+	<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="../css/game.css">
+	</head>
+	<body>
 	<form action="level2.php" method="post">
 	<label for="letters">Order these letters in decending order: </label>
+	<label for="letters">ie. F E D C B A </label>
 	<input type="text" id="letters" name="letters">
 	<input type="submit" name="submit" value="Submit">
+	<br/>
+	<input type="submit" name="stop" value="Stop">
 	</form>
+	</body>
+	</html>
+
 _END;
 }
 ?>

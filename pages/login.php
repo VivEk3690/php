@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
 	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="finalStyle.css">
+	<link rel="stylesheet" type="text/css" href="../css/finalStyle.css">
 </head>
 <body>
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -87,6 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<label>Password:</label>
 		<input type="password" name="password" required>
 		<input type="submit" value="Login">
+		<p><a href="modifiedPassword.php">Forgot Password? </a></p>
 		<p>don't have an account <a href="register.php">Register here </a></p>
 	</form>
 </body>

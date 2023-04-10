@@ -2,10 +2,10 @@
  session_start();
  include('function.php');
 
- 
+ menuBar();
  $numbers = $_SESSION["number"];
-echo implode(" ", $numbers) . "<br />";
-rsort($numbers);
+ echo "<h1 style='padding:20px 0px 0px;color:blue'><strong>". (implode(" ", $numbers)) . "</strong></h1>";
+ rsort($numbers);
 
 if (isset($_POST['submit'])) {
 
@@ -21,6 +21,9 @@ if (isset($_POST['submit'])) {
 		// Display a button to go to the next level
 		echo '<a href="level5.php">Go to Level 5</a>';
     $_SESSION["status"] ="incomplete"; 
+	$_SESSION["level"] = 5;
+	updateQustion(4);
+
    
 	} else {
 		// The user's answer is incorrect
@@ -46,16 +49,31 @@ if (isset($_POST['submit'])) {
 		}
 	}
 }
+else if (isset($_POST['stop'])) {
+	$_SESSION["status"] = "incomplete";
+	storeGameStatus();
+}
 
 
 //<!-- Level 1: Order letters in ascending order -->
 if (!isset($_POST['submit'])) {
 	echo <<<_END
+	<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="../css/game.css">
+	</head>
+	<body>
 	<form action="level4.php" method="post">
 	<label for="numbers">Order these numbers in decending order: </label>
+	<label for="numbers">ie. 6 5 4 3 2 1 </label>
 	<input type="text" id="numbers" name="numbers">
 	<input type="submit" name="submit" value="Submit">
+	<br/>
+	<input type="submit" name="stop" value="Stop">
 	</form>
+	</body>
+	</html>
+
 _END;
 }
 ?>

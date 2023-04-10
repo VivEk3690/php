@@ -2,9 +2,10 @@
  session_start();
  include('function.php');
 
+ menuBar();
  $leter = $_SESSION["letter"];
-echo implode(" ", $leter) . "<br />";
-$first = $leter[0];
+ echo "<h1 style='padding:20px 0px 0px;color:blue'><strong>". strtoupper(implode(" ", $leter)) . "</strong></h1>";
+ $first = $leter[0];
 $last = end($leter);
 
 if (isset($_POST['submit'])) {
@@ -21,6 +22,9 @@ if (isset($_POST['submit'])) {
 		// Display a button to go to the next level
 		echo '<a href="level6.php">Go to Level 6</a>';
         $_SESSION["status"] ="incomplete"; 
+		$_SESSION["level"] = 6;
+		updateQustion(5);
+
  
 	} else {
 		// The user's answer is incorrect
@@ -45,12 +49,21 @@ if (isset($_POST['submit'])) {
   
 		}
 	}
+} else if (isset($_POST['stop'])) {
+	$_SESSION["status"] = "incomplete";
+	storeGameStatus();
 }
+
 
 
 //<!-- Level 1: Order letters in ascending order -->
 if (!isset($_POST['submit'])) {
 	echo <<<_END
+	<html>
+	<head>
+	<link rel="stylesheet" type="text/css" href="../css/game.css">
+	</head>
+	<body>
 	<form action="level5.php" method="post">
     <br /><br />
 	<label for="txt1">write first letter of the string : </label>
@@ -60,7 +73,12 @@ if (!isset($_POST['submit'])) {
 	<input type="text" id="txt2" name="txt2">
 	<br /><br />
     <input type="submit" name="submit" value="Submit">
+	<br/>
+	<input type="submit" name="stop" value="Stop">
 	</form>
+	</body>
+	</html>
+
 _END;
 }
 ?>

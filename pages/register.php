@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
 	<title>Registration</title>
-	<link rel="stylesheet" type="text/css" href="finalStyle.css">
+	<link rel="stylesheet" type="text/css" href="../css/finalStyle.css">
 
 </head>
 
