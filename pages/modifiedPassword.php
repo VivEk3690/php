@@ -23,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if (!$result) {
 			die("Query failed: " . mysqli_error($conn));
 		}
-		header("Location: login.php");
+	// Redirect the user to the login page
+	header("Location: login.php");
 		exit();
 	}
 
-	// Redirect the user to the login page
 }
 ?>
 
